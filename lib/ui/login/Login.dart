@@ -3,7 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
-import 'package:meu_negocio_app/ui/Register.dart';
+import 'package:meu_negocio_app/ui/register/Register.dart';
 import 'package:meu_negocio_app/utils/AppColors.dart';
 
 class Login extends StatefulWidget {
