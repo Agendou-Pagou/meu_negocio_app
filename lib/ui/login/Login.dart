@@ -19,6 +19,8 @@ class _LoginState extends State<Login> {
 
 
   final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   bool _hidePassord = true;
 
@@ -31,7 +33,7 @@ class _LoginState extends State<Login> {
           child: Column(
             children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 127),
+              padding: const EdgeInsets.only(top: 127),
               child: Text(
                 'Bem-Vindo',
                   style: Theme.of(context).textTheme.headlineLarge!.apply(
@@ -41,7 +43,7 @@ class _LoginState extends State<Login> {
                 ),
             ),
               Padding ( 
-                padding: EdgeInsets.only(top: 6),
+                padding: const EdgeInsets.only(top: 6),
                 child: Text(
                 'faça login para acessar sua conta',
                   style: Theme.of(context).textTheme.titleSmall,
@@ -52,8 +54,9 @@ class _LoginState extends State<Login> {
                 child: Column (
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(top: 129, left: 20, right: 20), 
+                      padding: const EdgeInsets.only(top: 129, left: 20, right: 20), 
                       child: TextFormField(
+                        controller: _emailController,
                         decoration: InputDecoration ( 
                           prefixIcon: Icon ( Icons.email_outlined, color: Theme.of(context).colorScheme.primary),
                           labelText: 'E-mail'
@@ -61,22 +64,21 @@ class _LoginState extends State<Login> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 25, left: 20, right: 20), 
+                      padding: const EdgeInsets.only(top: 25, left: 20, right: 20), 
                       child: TextFormField(
-                      // ignore: unnecessary_this
-                      obscureText: this._hidePassord,
-                        
-                        decoration: InputDecoration ( 
-                          prefixIcon: Icon ( Icons.lock_outline, color: Theme.of(context).colorScheme.primary),
-                          suffixIcon: GestureDetector ( 
-                            onTap: () => setState(() { _hidePassord = !_hidePassord; }),
-                            child: Icon( 
-                              _hidePassord ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                              color: Theme.of(context).colorScheme.primary
-                            )
+                      controller: _passwordController,
+                          obscureText: _hidePassord,
+                          decoration: InputDecoration ( 
+                            prefixIcon: Icon ( Icons.lock_outline, color: Theme.of(context).colorScheme.primary),
+                            suffixIcon: GestureDetector ( 
+                              onTap: () => setState(() { _hidePassord = !_hidePassord; }),
+                              child: Icon( 
+                                _hidePassord ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                                color: Theme.of(context).colorScheme.primary
+                              )
+                            ),
+                            labelText: 'Senha'
                           ),
-                          labelText: 'Senha'
-                        ),
                       ),
                     )
                   ],
@@ -85,7 +87,7 @@ class _LoginState extends State<Login> {
               SizedBox(
                 width: double.infinity,
                 child: Padding ( 
-                  padding: EdgeInsets.only(top: 13, right: 20),
+                  padding:const EdgeInsets.only(top: 13, right: 20),
                   child: Text(
                   'esqueceu a senha ?',
                    textAlign: TextAlign.right,
@@ -102,10 +104,11 @@ class _LoginState extends State<Login> {
                   height: 64,
                   child: ElevatedButton(
                     onPressed: (){},
-                    child: Text('Entrar')
+                    child: const Text('Entrar')
                   ),
                 ),
               ),
+              // TODO: this can to be Widget QuestionAndLink
               Padding(
                 padding: const EdgeInsets.only(top: 13),
                 child: Row(
