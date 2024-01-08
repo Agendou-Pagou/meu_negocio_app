@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RecoverByEmail extends StatefulWidget{
+  const RecoverByEmail({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _RecoverByEmail();
