@@ -2,6 +2,8 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:logger/logger.dart';
+import 'package:meu_negocio_app/ui/Register.dart';
 import 'package:meu_negocio_app/utils/AppColors.dart';
 
 class Login extends StatefulWidget {
@@ -14,7 +16,13 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+
+
   final _formKey = GlobalKey<FormState>();
+
+  bool _hidePassord = true;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -55,8 +63,18 @@ class _LoginState extends State<Login> {
                     Padding(
                       padding: EdgeInsets.only(top: 25, left: 20, right: 20), 
                       child: TextFormField(
+                      // ignore: unnecessary_this
+                      obscureText: this._hidePassord,
+                        
                         decoration: InputDecoration ( 
-                          prefixIcon: Icon ( Icons.password, color: Theme.of(context).colorScheme.primary),
+                          prefixIcon: Icon ( Icons.lock_outline, color: Theme.of(context).colorScheme.primary),
+                          suffixIcon: GestureDetector ( 
+                            onTap: () => setState(() { _hidePassord = !_hidePassord; }),
+                            child: Icon( 
+                              _hidePassord ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+                              color: Theme.of(context).colorScheme.primary
+                            )
+                          ),
                           labelText: 'Senha'
                         ),
                       ),
@@ -97,13 +115,24 @@ class _LoginState extends State<Login> {
                       'É novo por aqui?',
                       style: Theme.of(context).textTheme.bodySmall,
                     ),
-                    SizedBox(width: 8), 
-                    Text(
-                      'Crie a sua conta',
-                      style: Theme.of(context).textTheme.bodySmall!.apply(
-                         color: Theme.of(context).colorScheme.primary
-                      ),
-                    ),
+                    GestureDetector(
+                    onTap: (){
+                        Logger().i('tap in create a new count');
+                        Navigator.of (context).push(
+                          MaterialPageRoute ( 
+                            builder: (context) => Register()
+                         )
+                        );
+                      },
+                    child: SizedBox(
+                      child: Text(
+                          ' Crie a sua conta',
+                          style: Theme.of(context).textTheme.bodySmall!.apply(
+                             color: Theme.of(context).colorScheme.primary
+                          ),
+                        ),
+                      )
+                    ), 
                   ],
                 ),
               )

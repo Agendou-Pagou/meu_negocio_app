@@ -12,6 +12,7 @@ class ThemeApp {
     ),
   );
 
+
  static themeData(){
     return FlexThemeData.light(
         scheme: FlexScheme.redWine,
@@ -30,7 +31,9 @@ class ThemeApp {
         swapLegacyOnMaterial3: true,
         fontFamily: GoogleFonts.notoSans().fontFamily,
 
-        textTheme:  textTheme
+        textTheme:  textTheme,
+
+        appBarBackground: FlexColor.redWineLightPrimary
 
          
       );
@@ -56,7 +59,9 @@ class ThemeApp {
         fontFamily: GoogleFonts.notoSans().fontFamily,
 
 
-        textTheme:  textTheme
+        textTheme:  textTheme,
+
+        appBarBackground: FlexColor.redWineDarkPrimary
       );   
   }
 
