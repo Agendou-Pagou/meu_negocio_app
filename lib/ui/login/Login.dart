@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
+import 'package:meu_negocio_app/ui/recoverAccount/RecoverByEmail.dart';
 import 'package:meu_negocio_app/ui/register/Register.dart';
 import 'package:meu_negocio_app/utils/AppColors.dart';
 
@@ -32,6 +33,8 @@ class _LoginState extends State<Login> {
         child: Center (
           child: Column(
             children: <Widget>[
+
+            //TODO this can make a widget TitleAndSubTitle
             Padding(
               padding: const EdgeInsets.only(top: 127),
               child: Text(
@@ -63,6 +66,7 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ),
+                    //TODO this can be a widget TextFormPassword
                     Padding(
                       padding: const EdgeInsets.only(top: 25, left: 20, right: 20), 
                       child: TextFormField(
@@ -84,16 +88,26 @@ class _LoginState extends State<Login> {
                   ],
                 )
               ),
-              SizedBox(
-                width: double.infinity,
-                child: Padding ( 
-                  padding:const EdgeInsets.only(top: 13, right: 20),
-                  child: Text(
-                  'esqueceu a senha ?',
-                   textAlign: TextAlign.right,
-                   style: Theme.of(context).textTheme.bodySmall!.apply (
-                     color: Theme.of(context).colorScheme.primary
-                     ),
+              // TODO this can be a Widget Link
+              GestureDetector(
+                onTap: (){
+                    Navigator.of (context).push(
+                      MaterialPageRoute ( 
+                        builder: (context) =>  RecoverByEmail()
+                     )
+                  );
+                },
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Padding ( 
+                    padding:const EdgeInsets.only(top: 13, right: 20),
+                    child: Text(
+                    'esqueceu a senha ?',
+                     textAlign: TextAlign.right,
+                     style: Theme.of(context).textTheme.bodySmall!.apply (
+                       color: Theme.of(context).colorScheme.primary
+                       ),
+                    ),
                   ),
                 ),
               ),
@@ -120,7 +134,6 @@ class _LoginState extends State<Login> {
                     ),
                     GestureDetector(
                     onTap: (){
-                        Logger().i('tap in create a new count');
                         Navigator.of (context).push(
                           MaterialPageRoute ( 
                             builder: (context) => Register()
