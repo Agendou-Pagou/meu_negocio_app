@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:logger/logger.dart';
 import 'package:meu_negocio_app/ui/recoverAccount/RecoverByEmail.dart';
 import 'package:meu_negocio_app/ui/register/Register.dart';
+import 'package:meu_negocio_app/ui/shared/Header.dart';
 import 'package:meu_negocio_app/utils/AppColors.dart';
 
 class Login extends StatefulWidget {
@@ -33,24 +34,9 @@ class _LoginState extends State<Login> {
         child: Center (
           child: Column(
             children: <Widget>[
-
-            //TODO this can make a widget TitleAndSubTitle
-            Padding(
-              padding: const EdgeInsets.only(top: 127),
-              child: Text(
-                'Bem-Vindo',
-                  style: Theme.of(context).textTheme.headlineLarge!.apply(
-                      color: Theme.of(context).colorScheme.primary,
-                      fontFamily: GoogleFonts.sacramento().fontFamily,
-                    ),
-                ),
-            ),
-              Padding ( 
-                padding: const EdgeInsets.only(top: 6),
-                child: Text(
-                'faça login para acessar sua conta',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
+              const Header(
+                title: 'Bem-vindo',
+                subTitle: 'faça login para acessar sua conta'
               ),
               Form ( 
                 key: _formKey,

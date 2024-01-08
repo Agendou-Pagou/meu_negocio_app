@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:meu_negocio_app/ui/shared/Header.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -31,23 +32,11 @@ class _RegisterState extends State<Register> {
             child: Center(
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 70),
-                child: Text(
-                  'Junte-se a nós',
-                  style: Theme.of(context).textTheme.headlineLarge!.apply(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontFamily: GoogleFonts.sacramento().fontFamily,
-                      ),
-                ),
-              ),
-              Padding ( 
-                padding: const EdgeInsets.only(top: 6),
-                child: Text(
-                'Crie uma conta gratuita para continuar',
-                  style: Theme.of(context).textTheme.titleSmall,
-                ),
-              ),
+             const Header(
+               title: 'Junte-se a nós',
+               subTitle:'Crie uma conta gratuita para continuar',
+               padding: EdgeInsets.only(top: 70)
+             ),
               Form ( 
                 key: _formKey,
                 child: Column (
