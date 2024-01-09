@@ -45,7 +45,7 @@ class _LoginState extends State<Login> {
                   children: <Widget>[
                     TextEmail(
                       padding: const EdgeInsets.only(top: 129, left: 20, right: 20), 
-                      controller: _emailController 
+                      controller: _emailController
                     ),
                     TextPassWord ( 
                       padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
@@ -83,7 +83,13 @@ class _LoginState extends State<Login> {
                   width: 291, 
                   height: 64,
                   child: ElevatedButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      if ( _formKey.currentState!.validate() ){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Processing Data')),
+                          );
+                        }
+                      },
                     child: const Text('Entrar')
                   ),
                 ),

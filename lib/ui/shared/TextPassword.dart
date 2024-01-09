@@ -29,6 +29,12 @@ class _TextPassWord extends State<TextPassWord> {
       Padding(
         padding: widget.padding, 
         child: TextFormField(
+        validator: (value) {
+          if (value == null || value.isEmpty || value.length < 8) {
+            return 'Senha inválida';
+          }
+          return null;
+        },
         controller: widget.controller,
             obscureText: _hidePassord,
             decoration: InputDecoration ( 

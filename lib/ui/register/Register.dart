@@ -41,6 +41,7 @@ class _RegisterState extends State<Register> {
                     Padding(
                       padding:const EdgeInsets.only(top: 70, left: 20, right: 20), 
                       child: TextFormField(
+                        validator: (value) =>value == null || value.trim().isEmpty ? 'O nome não pode estar vazio.' : null,
                         controller: _nameController,
                         decoration: InputDecoration ( 
                           prefixIcon: Icon ( Icons.account_circle_outlined, color: Theme.of(context).colorScheme.primary),
@@ -65,7 +66,13 @@ class _RegisterState extends State<Register> {
                   width: 291, 
                   height: 64,
                   child: ElevatedButton(
-                    onPressed: (){},
+                    onPressed: (){
+                      if ( _formKey.currentState!.validate() ){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text('Processing Data')),
+                          );
+                        }
+                      },
                     child: const Text('Criar')
                   ),
                 ),
