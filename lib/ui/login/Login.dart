@@ -6,6 +6,7 @@ import 'package:logger/logger.dart';
 import 'package:meu_negocio_app/ui/recoverAccount/RecoverByEmail.dart';
 import 'package:meu_negocio_app/ui/register/Register.dart';
 import 'package:meu_negocio_app/ui/shared/Header.dart';
+import 'package:meu_negocio_app/ui/shared/TextPassword.dart';
 import 'package:meu_negocio_app/utils/AppColors.dart';
 
 class Login extends StatefulWidget {
@@ -24,7 +25,6 @@ class _LoginState extends State<Login> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  bool _hidePassord = true;
 
 
   @override
@@ -52,24 +52,9 @@ class _LoginState extends State<Login> {
                         ),
                       ),
                     ),
-                    //TODO this can be a widget TextFormPassword
-                    Padding(
-                      padding: const EdgeInsets.only(top: 25, left: 20, right: 20), 
-                      child: TextFormField(
+                    TextPassWord ( 
+                      padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
                       controller: _passwordController,
-                          obscureText: _hidePassord,
-                          decoration: InputDecoration ( 
-                            prefixIcon: Icon ( Icons.lock_outline, color: Theme.of(context).colorScheme.primary),
-                            suffixIcon: GestureDetector ( 
-                              onTap: () => setState(() { _hidePassord = !_hidePassord; }),
-                              child: Icon( 
-                                _hidePassord ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                                color: Theme.of(context).colorScheme.primary
-                              )
-                            ),
-                            labelText: 'Senha'
-                          ),
-                      ),
                     )
                   ],
                 )

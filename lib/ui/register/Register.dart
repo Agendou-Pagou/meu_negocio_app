@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meu_negocio_app/ui/shared/Header.dart';
+import 'package:meu_negocio_app/ui/shared/TextPassword.dart';
 
 class Register extends StatefulWidget {
   @override
@@ -11,8 +12,6 @@ class Register extends StatefulWidget {
 
 class _RegisterState extends State<Register> {
 
-  
-  bool _hidePassword = true;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -61,26 +60,10 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 25, left: 20, right: 20), 
-                      child: TextFormField(
+                    TextPassWord ( 
                       controller: _passwordController,
-                      obscureText: _hidePassword,
-                        
-                        decoration: InputDecoration ( 
-                          prefixIcon: Icon ( Icons.lock_outline, color: Theme.of(context).colorScheme.primary),
-                          suffixIcon: GestureDetector ( 
-                            onTap: () => setState(() { _hidePassword = !_hidePassword; }),
-                            child: Icon( 
-                              _hidePassword ? Icons.visibility_off_outlined : Icons.visibility_outlined,
-                              color: Theme.of(context).colorScheme.primary
-                            )
-                          ),
-                          labelText: 'Senha'
-                        ),
-                      ),
+                      padding: const EdgeInsets.only(top: 25, left: 20, right: 20), 
                     ),
-
                   ],
                 )
               ),
