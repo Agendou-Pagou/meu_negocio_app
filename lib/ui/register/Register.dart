@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meu_negocio_app/ui/shared/Header.dart';
+import 'package:meu_negocio_app/ui/shared/TextEmail.dart';
 import 'package:meu_negocio_app/ui/shared/TextPassword.dart';
 
 class Register extends StatefulWidget {
@@ -21,9 +22,6 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-
-
-
 
     return Scaffold(
         appBar: AppBar(),
@@ -50,15 +48,9 @@ class _RegisterState extends State<Register> {
                         ),
                       ),
                     ),
-                    Padding(
+                    TextEmail (
                       padding: const EdgeInsets.only(top: 25, left: 20, right: 20), 
-                      child: TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration ( 
-                          prefixIcon: Icon ( Icons.email_outlined, color: Theme.of(context).colorScheme.primary),
-                          labelText: 'E-mail'
-                        ),
-                      ),
+                      controller: _emailController,
                     ),
                     TextPassWord ( 
                       controller: _passwordController,
@@ -78,7 +70,6 @@ class _RegisterState extends State<Register> {
                   ),
                 ),
               ),
-
               Padding(
                 padding: const EdgeInsets.only(top: 13),
                 child: Row(

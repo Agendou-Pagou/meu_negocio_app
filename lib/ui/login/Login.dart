@@ -6,6 +6,7 @@ import 'package:logger/logger.dart';
 import 'package:meu_negocio_app/ui/recoverAccount/RecoverByEmail.dart';
 import 'package:meu_negocio_app/ui/register/Register.dart';
 import 'package:meu_negocio_app/ui/shared/Header.dart';
+import 'package:meu_negocio_app/ui/shared/TextEmail.dart';
 import 'package:meu_negocio_app/ui/shared/TextPassword.dart';
 import 'package:meu_negocio_app/utils/AppColors.dart';
 
@@ -42,15 +43,9 @@ class _LoginState extends State<Login> {
                 key: _formKey,
                 child: Column (
                   children: <Widget>[
-                    Padding(
+                    TextEmail(
                       padding: const EdgeInsets.only(top: 129, left: 20, right: 20), 
-                      child: TextFormField(
-                        controller: _emailController,
-                        decoration: InputDecoration ( 
-                          prefixIcon: Icon ( Icons.email_outlined, color: Theme.of(context).colorScheme.primary),
-                          labelText: 'E-mail'
-                        ),
-                      ),
+                      controller: _emailController 
                     ),
                     TextPassWord ( 
                       padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
