@@ -9,7 +9,7 @@ class BaseApi{
 
 
   BaseApi._internal (): _dio = Dio() {
-    _dio!.options.baseUrl = 'http://localhost:3000/';
+    _dio!.options.baseUrl = 'http://192.168.0.107:3000/';
   }
 
   static BaseApi getInstance() => _instance ??= BaseApi._internal(); 

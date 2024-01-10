@@ -6,7 +6,7 @@ import 'package:dio/dio.dart'; // Import Dio package
 void main() {
   test('LoginService login', () async {
     // Arrange
-    final loginRequest = LoginRequest(email: 'test@example.com', password: 'password123');
+    final loginRequest = LoginRequest('test@example.com', 'password123');
 
     int? statusCode;
     await LoginService.login(loginRequest)
@@ -14,7 +14,7 @@ void main() {
         statusCode = value.statusCode;
       })
       .catchError((e) {
-        if (e is DioException) 
+        if (e is DioException)
           statusCode = e.response?.statusCode;
           
       });

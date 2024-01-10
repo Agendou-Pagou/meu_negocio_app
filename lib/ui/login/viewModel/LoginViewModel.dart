@@ -30,9 +30,6 @@ class LoginViewModel extends ChangeNotifier {
 
     await LoginService.login(loginRequest);
 
-    Logger().e('eu estou aqui');
-
-
     isLoading = false;
     notifyListeners();
   }
