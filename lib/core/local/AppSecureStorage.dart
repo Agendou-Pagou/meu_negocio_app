@@ -1,5 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:logger/logger.dart';
+import 'package:meu_negocio_app/core/log/Log.dart';
 
 class AppSecureStorage {
 
@@ -21,7 +21,7 @@ class AppSecureStorage {
       try {
         await storage.write(key: "token", value: token);
       } catch (e) {
-        Logger().e("Error while setting token: $e");
+        Log.e("Error while setting token: $e");
       }
     }
 
@@ -29,7 +29,7 @@ class AppSecureStorage {
       try {
         return await storage.read(key: "token");
       } catch (e) {
-        Logger().e("Error while getting token: $e");
+        Log.e("Error while getting token: $e");
         return null;
       }
     }

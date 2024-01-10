@@ -33,9 +33,6 @@ class RegisterViewModel extends ChangeNotifier{
 
     await RegisterService.register(loginRequest);
 
-    Logger().e('eu estou aqui');
-
-
     isLoading = false;
     notifyListeners();
   }

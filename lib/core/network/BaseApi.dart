@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:logger/logger.dart';
+import 'package:meu_negocio_app/core/log/Log.dart';
 
 class BaseApi{
 
@@ -19,7 +20,7 @@ class BaseApi{
       final response = await _dio!.get(path, queryParameters: queryParameters);
       return response;
     } catch (error) {
-      Logger().e('Error in API request: $error');
+      Log.e('Error in API request: $error');
       rethrow;
     }
   }
@@ -29,7 +30,7 @@ class BaseApi{
       final response = await _dio!.post(path, data: data);
       return response;
     } catch (error) {
-      Logger().e('Error in API request: $error');
+      Log.e('Error in API request: $error');
       rethrow;
     }
   }

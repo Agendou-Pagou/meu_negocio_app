@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:logger/logger.dart';
+import 'package:meu_negocio_app/core/log/Log.dart';
 import 'package:meu_negocio_app/ui/register/model/RegisterRequest.dart';
 import 'package:meu_negocio_app/ui/register/service/RegisterService.dart';
 import 'package:test/test.dart';
@@ -20,7 +21,7 @@ void main() {
       })
       .catchError((e) {
         if (e is DioException){
-          Logger().e(e.response?.statusCode);
+          Log.e(e.response?.statusCode);
           statusCode = e.response?.statusCode;
 
           }
