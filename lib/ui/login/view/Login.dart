@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:meu_negocio_app/ui/login/viewModel/LoginViewModel.dart';
 import 'package:meu_negocio_app/ui/recoverAccount/RecoverByEmail.dart';
-import 'package:meu_negocio_app/ui/register/Register.dart';
+import 'package:meu_negocio_app/ui/register/view/Register.dart';
 import 'package:meu_negocio_app/ui/shared/Header.dart';
 import 'package:meu_negocio_app/ui/shared/TextEmail.dart';
 import 'package:meu_negocio_app/ui/shared/TextPassword.dart';
