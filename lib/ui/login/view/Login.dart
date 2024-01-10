@@ -1,17 +1,29 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:logger/logger.dart';
+import 'package:meu_negocio_app/ui/login/viewModel/LoginViewModel.dart';
 import 'package:meu_negocio_app/ui/recoverAccount/RecoverByEmail.dart';
 import 'package:meu_negocio_app/ui/register/Register.dart';
 import 'package:meu_negocio_app/ui/shared/Header.dart';
 import 'package:meu_negocio_app/ui/shared/TextEmail.dart';
 import 'package:meu_negocio_app/ui/shared/TextPassword.dart';
-import 'package:meu_negocio_app/utils/AppColors.dart';
+import 'package:provider/provider.dart';
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+
+
+class Login extends StatelessWidget {
+  const Login({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ChangeNotifierProvider(
+      create: (context) => LoginViewModel(),
+      child: const _Login(),
+    );
+  }
+}
+
+
+class _Login extends StatefulWidget {
+  const _Login({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -19,17 +31,13 @@ class Login extends StatefulWidget {
   }
 }
 
-class _LoginState extends State<Login> {
-
-
-  final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController();
-  final _passwordController = TextEditingController();
-
-
+class _LoginState extends State<_Login> {
 
   @override
   Widget build(BuildContext context) {
+
+    LoginViewModel model =  Provider.of<LoginViewModel>(context, listen: false);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Center (
@@ -40,16 +48,16 @@ class _LoginState extends State<Login> {
                 subTitle: 'faça login para acessar sua conta'
               ),
               Form ( 
-                key: _formKey,
+                key: model.formKey,
                 child: Column (
                   children: <Widget>[
                     TextEmail(
                       padding: const EdgeInsets.only(top: 129, left: 20, right: 20), 
-                      controller: _emailController
+                      controller: model.emailController
                     ),
                     TextPassWord ( 
                       padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
-                      controller: _passwordController,
+                      controller: model.passwordController,
                     )
                   ],
                 )
@@ -83,12 +91,13 @@ class _LoginState extends State<Login> {
                   width: 291, 
                   height: 64,
                   child: ElevatedButton(
-                    onPressed: (){
-                      if ( _formKey.currentState!.validate() ){
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Processing Data')),
-                          );
-                        }
+                    onPressed: () {
+                          model.login().then((value) => {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Processing Data')),
+                            )
+                          }
+                        );
                       },
                     child: const Text('Entrar')
                   ),

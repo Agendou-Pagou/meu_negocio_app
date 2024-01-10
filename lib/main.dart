@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meu_negocio_app/config/ThemeApp.dart';
-import 'package:meu_negocio_app/ui/login/Login.dart';
+import 'package:meu_negocio_app/ui/login/view/Login.dart';
 
 void main() {
   runApp(const MyApp());
