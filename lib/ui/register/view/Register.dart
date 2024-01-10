@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:meu_negocio_app/ui/register/viewModel/RegisterViewMode.dart';
 import 'package:meu_negocio_app/ui/shared/Header.dart';
 import 'package:meu_negocio_app/ui/shared/TextEmail.dart';

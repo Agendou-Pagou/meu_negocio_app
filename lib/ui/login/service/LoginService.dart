@@ -1,6 +1,6 @@
 
 import 'package:dio/dio.dart';
-import 'package:meu_negocio_app/data/BaseApi.dart';
+import 'package:meu_negocio_app/data/network/BaseApi.dart';
 import 'package:meu_negocio_app/ui/login/model/LoginRequest.dart';
 
 class LoginService{

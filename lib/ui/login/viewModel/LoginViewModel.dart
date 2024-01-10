@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:meu_negocio_app/ui/login/service/LoginService.dart';
 
 import '../model/LoginRequest.dart';
