@@ -16,23 +16,11 @@ class BaseApi{
   static BaseApi getInstance() => _instance ??= BaseApi._internal(); 
 
   Future<Response> get(String path, Map<String, dynamic>? queryParameters) async {
-    try {
-      final response = await _dio!.get(path, queryParameters: queryParameters);
-      return response;
-    } catch (error) {
-      Log.e('Error in API request: $error');
-      rethrow;
-    }
+    return _dio!.get(path, queryParameters: queryParameters);
   }
 
   Future<Response> post(String path, dynamic data) async {
-    try {
-      final response = await _dio!.post(path, data: data);
-      return response;
-    } catch (error) {
-      Log.e('Error in API request: $error');
-      rethrow;
-    }
+    return _dio!.post(path, data: data);
   }
 
 }

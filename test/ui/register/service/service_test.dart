@@ -12,16 +12,18 @@ void main() {
 
   test('RegisterService', () async {
     // Arrange
-    final registerRequest = RegisterRequest('random2@gmail.com','123','password123');
+    final registerRequest = RegisterRequest('saniman111@regapts.com','123','password123');
 
     int? statusCode;
     await RegisterService.register(registerRequest)
       .then((value) {
         statusCode = value.statusCode;
+
+        Log.d(value);
       })
       .catchError((e) {
         if (e is DioException){
-          Log.e(e.response?.statusCode);
+          Log.d('Error in API request: $e');
           statusCode = e.response?.statusCode;
 
           }

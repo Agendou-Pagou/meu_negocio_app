@@ -23,7 +23,7 @@ class LoginViewModel extends ChangeNotifier {
     isLoading = true;  
     notifyListeners();
 
-    if ( !formKey.currentState!.validate() ){
+    if ( !formKey.currentState!.validate()) {
       throw Exception();
     }
 
