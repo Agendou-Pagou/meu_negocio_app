@@ -28,6 +28,8 @@ class RegisterViewModel extends ChangeNotifier{
     notifyListeners();
 
     if ( !formKey.currentState!.validate() ){
+      isLoading = false;
+      notifyListeners();
       throw Exception();
     }
 

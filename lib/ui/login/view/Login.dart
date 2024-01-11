@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:meu_negocio_app/ui/login/viewModel/LoginViewModel.dart';
 import 'package:meu_negocio_app/ui/recoverAccount/RecoverByEmail.dart';
 import 'package:meu_negocio_app/ui/register/view/Register.dart';
+import 'package:meu_negocio_app/ui/shared/ErrorPopUp.dart';
 import 'package:meu_negocio_app/ui/shared/Header.dart';
 import 'package:meu_negocio_app/ui/shared/TextEmail.dart';
 import 'package:meu_negocio_app/ui/shared/TextPassword.dart';
@@ -97,7 +98,13 @@ class _LoginState extends State<_Login> {
                               const SnackBar(content: Text('Processing Data')),
                             )
                           }
-                        );
+                        ).catchError( (e) => {
+                          showDialog<String>(
+                            context: context,
+                            builder:(BuildContext context) => ErrorPopUp(),
+                          )
+                        }
+                       );
                       },
                     child: const Text('Entrar')
                   ),
