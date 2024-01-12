@@ -26,7 +26,7 @@ class LoginViewModel extends ChangeNotifier {
     if ( !formKey.currentState!.validate()) {
       isLoading = false;
       notifyListeners();
-      throw Exception();
+      throw Exception('Valóres inválidos');
     }
 
     await LoginService.login(loginRequest);

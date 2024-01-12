@@ -1,16 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:meu_negocio_app/core/log/Log.dart';
 
 class ErrorPopUp extends StatelessWidget {
-  const ErrorPopUp({super.key});
+
+  final Widget content;
+
+  const ErrorPopUp({super.key, required this.content});
 
   @override
   Widget build(BuildContext context) {
   return AlertDialog (
-      title: const Text('AlertDialog Title'),
-      content: const Text('AlertDialog description'),
+      title:  Align(
+      
+        alignment: Alignment.centerLeft,
+      
+        child: Icon(
+          Icons.error,
+          size: 40,
+          color: Theme.of(context).colorScheme.error,
+        ),
+      ),
+      content: content,
       actions: <Widget>[
         TextButton(
-          onPressed: () => Navigator.pop(context, 'OK'),
+        
+          onPressed: () => {
+            Log.d('tap'),
+            Navigator.pop(context, 'OK')
+          },
           child: const Text('OK'),
         ),
       ],

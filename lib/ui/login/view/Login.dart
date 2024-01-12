@@ -74,8 +74,8 @@ class _LoginState extends State<_Login> {
                      )
                   );
                 },
-                child: SizedBox(
-                  width: double.infinity,
+                child: Align(
+                  alignment: Alignment.centerRight,
                   child: Padding ( 
                     padding:const EdgeInsets.only(top: 13, right: 20),
                     child: Text(
@@ -101,9 +101,9 @@ class _LoginState extends State<_Login> {
                             )
                           }
                         ).catchError( (e) => {
-                          showDialog<String>(
+                          showDialog<Object>(
                             context: context,
-                            builder:(BuildContext context) => ErrorPopUp(),
+                            builder:(BuildContext context) => ErrorPopUp(content: Text('$e')),
                           )
                         }
                        );
