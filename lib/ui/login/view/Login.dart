@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:meu_negocio_app/Info/Info.dart';
+import 'package:meu_negocio_app/core/log/Log.dart';
 import 'package:meu_negocio_app/ui/login/viewModel/LoginViewModel.dart';
 import 'package:meu_negocio_app/ui/recoverAccount/RecoverByEmail.dart';
 import 'package:meu_negocio_app/ui/register/view/Register.dart';
