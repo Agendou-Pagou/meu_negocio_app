@@ -35,5 +35,8 @@ class LoginViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<bool> tryToLoginWithDeviceAuth() async{
+   return LoginService.authenticate();
+  }
 
 }

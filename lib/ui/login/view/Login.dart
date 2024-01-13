@@ -41,6 +41,8 @@ class _LoginState extends State<_Login> {
 
     LoginViewModel model =  Provider.of<LoginViewModel>(context, listen: false);
 
+    model.tryToLoginWithDeviceAuth().then((value) => Log.e('deu certo'));
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Center (
