@@ -1,7 +1,9 @@
 import 'package:local_auth/local_auth.dart';
 import 'package:dio/dio.dart';
+import 'package:meu_negocio_app/core/local/AppSecureStorage.dart';
 import 'package:meu_negocio_app/core/network/BaseApi.dart';
 import 'package:meu_negocio_app/ui/login/model/LoginRequest.dart';
+import 'package:meu_negocio_app/ui/login/model/LoginResponse.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginService{
@@ -18,32 +20,16 @@ class LoginService{
       'password' : loginRequest.password
     });
 
+    AppSecureStorage.getInstance().setAuthToken(LoginResponse.fromJsonString(response.toString()).authToken);
+    AppSecureStorage.getInstance().setRefreshToken(LoginResponse.fromJsonString(response.toString()).refreshToken);
+
+    assert(loginRequest.email != null);
+
+    AppSecureStorage.getInstance().setEmail(loginRequest.email ?? '');
+
     return response;
-
   }
 
-  static Future<bool> isLoggedIn() async {
-    SharedPreferences pref = await SharedPreferences.getInstance(); 
-    return pref.getBool(_IS_LOGGED_IN) ?? false;
-  }
-
-  static Future<String> getName() async {
-    SharedPreferences pref = await SharedPreferences.getInstance(); 
-    return pref.getString(_NAME) ?? "null";
-  }
-
-  static Future<void> logout() async {
-    SharedPreferences pref = await SharedPreferences.getInstance(); 
-    pref.clear();
-  }
-
-
-  static Future<bool> authenticate() async {
-    final _auth = LocalAuthentication();
-    return await _auth.authenticate(
-      localizedReason: 'Touch your finger on the sensor to login');
-
-  }
 
 
 

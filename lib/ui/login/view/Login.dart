@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meu_negocio_app/Info/Info.dart';
 import 'package:meu_negocio_app/core/log/Log.dart';
 import 'package:meu_negocio_app/ui/login/viewModel/LoginViewModel.dart';
 import 'package:meu_negocio_app/ui/recoverAccount/RecoverByEmail.dart';
@@ -39,9 +38,9 @@ class _LoginState extends State<_Login> {
   @override
   Widget build(BuildContext context) {
 
-    LoginViewModel model =  Provider.of<LoginViewModel>(context, listen: false);
+    LoginViewModel viewModel =  Provider.of<LoginViewModel>(context, listen: false);
 
-    model.tryToLoginWithDeviceAuth().then((value) => Log.e('deu certo'));
+    viewModel.loginWithDeviceAuth().then((value) => Log.e(value?'deu certo' :'negado'));
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -53,16 +52,16 @@ class _LoginState extends State<_Login> {
                 subTitle: 'faça login para acessar sua conta'
               ),
               Form ( 
-                key: model.formKey,
+                key: viewModel.formKey,
                 child: Column (
                   children: <Widget>[
                     TextEmail(
                       padding: const EdgeInsets.only(top: 129, left: 20, right: 20), 
-                      controller: model.emailController
+                      controller: viewModel.emailController
                     ),
                     TextPassWord ( 
                       padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
-                      controller: model.passwordController,
+                      controller: viewModel.passwordController,
                     )
                   ],
                 )
@@ -97,7 +96,7 @@ class _LoginState extends State<_Login> {
                   height: 64,
                   child: ElevatedButton(
                     onPressed: () {
-                          model.login().then((value) => {
+                          viewModel.loginWithNameAndEmail().then((value) => {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Processing Data')),
                             )
