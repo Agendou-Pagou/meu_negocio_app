@@ -20,7 +20,6 @@ class LoginViewModel extends ChangeNotifier {
   
   Future<void> loginWithNameAndEmail() async {
 
-    LoginRequest loginRequest = LoginRequest(emailController.text, passwordController.text);
 
     isLoading = true;  
     notifyListeners();
@@ -30,6 +29,8 @@ class LoginViewModel extends ChangeNotifier {
       notifyListeners();
       throw Exception('Valóres inválidos');
     }
+
+    LoginRequest loginRequest = LoginRequest(emailController.text, passwordController.text);
 
     await LoginService.login(loginRequest);
 
@@ -47,7 +48,7 @@ class LoginViewModel extends ChangeNotifier {
 
     final _auth = LocalAuthentication();
     return await _auth.authenticate(
-      localizedReason: 'Touch your finger on the sensor to login');
+      localizedReason: 'Toque com o dedo no sensor para logar');
   }
 
 }
