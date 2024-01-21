@@ -50,42 +50,42 @@ class _LoginState extends State<_Login> {
   }
 
   Widget _authDevice(LoginViewModel viewModel) {
-
-  return Center(
-    child: Column ( 
-    children: <Widget>[
-
-    Padding(
-      padding: const EdgeInsets.only(top: 129),
-      child: Icon( 
-        Icons.lock_sharp, 
-        color: Theme.of(context).colorScheme.primary,
-        size: 120,
-        ),
-    ),
-
-    Padding(
-        padding: const EdgeInsets.only(top: 160),
-        child: SizedBox(
-          width: 291, 
-          height: 64,
-          child: ElevatedButton(
-            onPressed: () =>  {
-              viewModel.loginWithDeviceAuth().then((value){
-                if ( value )
-                   Navigator.of (context).push( MaterialPageRoute ( builder: (context) => HomeView()));
-                })
-              },
-            child: const Text('Usar senha do celular')
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Expanded(
+          child: Center(
+            child: Icon(
+              Icons.lock_sharp,
+              color: Theme.of(context).colorScheme.primary,
+              size: 120,
+            ),
           ),
         ),
-      ),
-    ]
-    )
-  );
-
+        Container(
+          margin: const EdgeInsets.only(bottom: 16),
+          child: SizedBox(
+            width: 291,
+            height: 64,
+            child: ElevatedButton(
+              onPressed: () {
+                viewModel.loginWithDeviceAuth().then((value) {
+                  if (value) {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => HomeView(),
+                      ),
+                    );
+                  }
+                });
+              },
+              child: const Text('Usar senha do celular'),
+            ),
+          ),
+        ),
+      ],
+    );
   }
-
 
   Widget _emailAndPasword(LoginViewModel viewModel) {
     return SingleChildScrollView(
