@@ -45,7 +45,7 @@ class _LoginState extends State<_Login> {
     LoginViewModel viewModel =  Provider.of<LoginViewModel>(context, listen: false);
 
     return Scaffold(
-      body: _authDevice(viewModel),
+      body: _emailAndPassword(viewModel),
     );
   }
 
@@ -73,7 +73,7 @@ class _LoginState extends State<_Login> {
                   if (value) {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => HomeView(),
+                        builder: (context) => const HomeView(),
                       ),
                     );
                   }
@@ -87,108 +87,146 @@ class _LoginState extends State<_Login> {
     );
   }
 
-  Widget _emailAndPasword(LoginViewModel viewModel) {
+  Widget _emailAndPassword(LoginViewModel viewModel) {
     return SingleChildScrollView(
-      child: Center (
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Header(
-              title: 'Bem-vindo',
-              subTitle: 'faça login para acessar sua conta'
+            const Expanded(
+              child:  Center(
+                child:  Header(
+                  title: 'Bem-vindo',
+                  subTitle: 'faça login para acessar sua conta',
+                ),
+              ),
             ),
-            Form ( 
-              key: viewModel.formKey,
-              child: Column (
-                children: <Widget>[
-                  TextEmail(
-                    padding: const EdgeInsets.only(top: 129, left: 20, right: 20), 
-                    controller: viewModel.emailController
-                  ),
-                  TextPassWord ( 
-                    padding: const EdgeInsets.only(top: 25, left: 20, right: 20),
-                    controller: viewModel.passwordController,
-                  )
+
+            Expanded(
+              child: Column ( 
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                _formSection(viewModel),
+                _forgotPasswordLink(context)
                 ],
               )
             ),
-            // TODO this can be a Widget Link
-            GestureDetector(
-              onTap: (){
-                  Navigator.of (context).push(
-                    MaterialPageRoute ( 
-                      builder: (context) =>  RecoverByEmail()
-                   )
-                );
-              },
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: Padding ( 
-                  padding:const EdgeInsets.only(top: 13, right: 20),
-                  child: Text(
-                  'esqueceu a senha ?',
-                   textAlign: TextAlign.right,
-                   style: Theme.of(context).textTheme.bodySmall!.apply (
-                     color: Theme.of(context).colorScheme.primary
-                     ),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 160),
-              child: SizedBox(
-                width: 291, 
-                height: 64,
-                child: ElevatedButton(
-                  onPressed: () {
-                        viewModel.loginWithNameAndEmail().then((value) {
-                           Navigator.of (context).push( MaterialPageRoute ( builder: (context) => HomeView()));
-                        }
-                      ).catchError( (e) => {
-                        showDialog<Object>(
-                          context: context,
-                          builder:(BuildContext context) => ErrorPopUp(content: Text('$e')),
-                        )
-                      }
-                     );
-                    },
-                  child: const Text('Entrar')
-                ),
-              ),
-            ),
-            // TODO: this can to be Widget QuestionAndLink
-            Padding(
-              padding: const EdgeInsets.only(top: 13),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center, 
+            Expanded(
+              child: Column ( 
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'É novo por aqui?',
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                  GestureDetector(
-                  onTap: (){
-                      Navigator.of (context).push(
-                        MaterialPageRoute ( 
-                          builder: (context) => Register()
-                       )
-                      );
-                    },
-                  child: SizedBox(
-                    child: Text(
-                        ' Crie a sua conta',
-                        style: Theme.of(context).textTheme.bodySmall!.apply(
-                           color: Theme.of(context).colorScheme.primary
-                        ),
-                      ),
-                    )
-                  ), 
+                _loginButtonSection(context, viewModel),
+                _createAccountLink(context)
                 ],
-              ),
+              )
             )
           ],
-        )
+        ),
       ),
     );
   }
+
+  Widget _formSection(LoginViewModel viewModel) {
+    return Form(
+      key: viewModel.formKey,
+      child: Column(
+        children: <Widget>[
+          TextEmail(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            controller: viewModel.emailController,
+          ),
+          TextPassWord(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            controller: viewModel.passwordController,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _forgotPasswordLink(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const RecoverByEmail(),
+          ),
+        );
+      },
+      child: Align(
+        alignment: Alignment.centerRight,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 13, right: 20),
+          child: Text(
+            'esqueceu a senha ?',
+            textAlign: TextAlign.right,
+            style: Theme.of(context).textTheme.bodySmall!.apply(
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _loginButtonSection(BuildContext context, LoginViewModel viewModel) {
+    return SizedBox(
+      width: 291,
+      height: 64,
+      child: ElevatedButton(
+        onPressed: () {
+          viewModel.loginWithNameAndEmail().then((value) {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const HomeView(),
+              ),
+            );
+          }).catchError((e) => {
+                showDialog<Object>(
+                  context: context,
+                  builder: (BuildContext context) =>
+                      ErrorPopUp(content: Text('$e')),
+                )
+              });
+        },
+        child: const Text('Entrar'),
+      ),
+    );
+  }
+
+  Widget _createAccountLink(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 13),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'É novo por aqui?',
+            style: Theme.of(context).textTheme.bodySmall,
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => const Register(),
+                ),
+              );
+            },
+            child: SizedBox(
+              child: Text(
+                ' Crie a sua conta',
+                style: Theme.of(context).textTheme.bodySmall!.apply(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
 }
+
