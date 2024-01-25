@@ -191,7 +191,11 @@ class _LoginState extends State<_Login> {
                 )
               });
         },
-        child: const Text('Entrar'),
+        child: Consumer<LoginViewModel>(
+          builder: (context, value, child) => value.isLoading
+              ? const CircularProgressIndicator(value: null)
+              : const Text('Entrar'),
+        )
       ),
     );
   }

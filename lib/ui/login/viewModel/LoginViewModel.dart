@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:meu_negocio_app/core/local/AppSecureStorage.dart';
@@ -19,25 +18,29 @@ class LoginViewModel extends ChangeNotifier {
   
   
   Future<void> loginWithNameAndEmail() async {
+    try {
+      isLoading = true;
+      notifyListeners();
 
+      if (!formKey.currentState!.validate()) {
+        throw Exception('Valores inválidos');
+      }
 
-    isLoading = true;  
-    notifyListeners();
+      LoginRequest loginRequest =
+          LoginRequest(emailController.text, passwordController.text);
 
-    if ( !formKey.currentState!.validate()) {
+      await LoginService.login(loginRequest);
+
       isLoading = false;
       notifyListeners();
-      throw Exception('Valóres inválidos');
+
+    } catch (e) {
+      isLoading = false;
+      notifyListeners();
+      rethrow;
     }
-
-    LoginRequest loginRequest = LoginRequest(emailController.text, passwordController.text);
-
-    await LoginService.login(loginRequest);
-
-    isLoading = false;
-    notifyListeners();
-
   }
+
 
 
    Future<bool> loginWithDeviceAuth() async {
@@ -46,8 +49,7 @@ class LoginViewModel extends ChangeNotifier {
 
     assert(refreshToken != null);
 
-    final _auth = LocalAuthentication();
-    return await _auth.authenticate(
+    return await LocalAuthentication().authenticate(
       localizedReason: 'Toque com o dedo no sensor para logar');
   }
 
