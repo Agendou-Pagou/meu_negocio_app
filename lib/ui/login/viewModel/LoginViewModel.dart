@@ -3,6 +3,7 @@ import 'package:local_auth/local_auth.dart';
 import 'package:meu_negocio_app/core/local/AppSecureStorage.dart';
 import 'package:meu_negocio_app/ui/login/service/LoginService.dart';
 
+
 import '../model/LoginRequest.dart';
 
 class LoginViewModel extends ChangeNotifier {
@@ -13,11 +14,19 @@ class LoginViewModel extends ChangeNotifier {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
+
+
   LoginViewModel() :
     isLoading = false;
   
   
   Future<void> loginWithNameAndEmail() async {
+
+    // TODO use mutex to make this
+    if (isLoading){
+      return;
+    }
+
     try {
       isLoading = true;
       notifyListeners();
@@ -31,13 +40,11 @@ class LoginViewModel extends ChangeNotifier {
 
       await LoginService.login(loginRequest);
 
-      isLoading = false;
-      notifyListeners();
-
     } catch (e) {
+      rethrow;
+    } finally {
       isLoading = false;
       notifyListeners();
-      rethrow;
     }
   }
 
