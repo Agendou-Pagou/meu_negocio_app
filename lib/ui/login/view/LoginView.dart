@@ -3,7 +3,7 @@ import 'package:meu_negocio_app/core/log/Log.dart';
 import 'package:meu_negocio_app/ui/home/view/HomeView.dart';
 import 'package:meu_negocio_app/ui/login/viewModel/LoginViewModel.dart';
 import 'package:meu_negocio_app/ui/recoverAccount/RecoverByEmail.dart';
-import 'package:meu_negocio_app/ui/register/view/Register.dart';
+import 'package:meu_negocio_app/ui/register/view/RegisterView.dart';
 import 'package:meu_negocio_app/ui/shared/ErrorPopUp.dart';
 import 'package:meu_negocio_app/ui/shared/Header.dart';
 import 'package:meu_negocio_app/ui/shared/TextEmail.dart';

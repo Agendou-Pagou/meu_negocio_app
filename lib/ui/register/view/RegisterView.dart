@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:meu_negocio_app/ui/register/viewModel/RegisterViewMode.dart';
+import 'package:meu_negocio_app/ui/register/viewModel/RegisterViewModel.dart';
 import 'package:meu_negocio_app/ui/shared/Header.dart';
 import 'package:meu_negocio_app/ui/shared/TextEmail.dart';
 import 'package:meu_negocio_app/ui/shared/TextPassword.dart';
@@ -31,7 +31,7 @@ class _RegisterState extends State<_Register> {
   @override
   Widget build(BuildContext context) {
 
-    RegisterViewModel model =  Provider.of<RegisterViewModel>(context, listen: false);
+    RegisterViewModel viewModel =  Provider.of<RegisterViewModel>(context, listen: false);
 
     return Scaffold(
         appBar: AppBar(),
@@ -45,14 +45,14 @@ class _RegisterState extends State<_Register> {
                padding: EdgeInsets.only(top: 70)
              ),
               Form ( 
-                key: model.formKey,
+                key: viewModel.formKey,
                 child: Column (
                   children: <Widget>[
                     Padding(
                       padding:const EdgeInsets.only(top: 70, left: 20, right: 20), 
                       child: TextFormField(
                         validator: (value) =>value == null || value.trim().isEmpty ? 'O nome não pode estar vazio.' : null,
-                        controller: model.nameController,
+                        controller: viewModel.nameController,
                         decoration: InputDecoration ( 
                           prefixIcon: Icon ( Icons.account_circle_outlined, color: Theme.of(context).colorScheme.primary),
                           labelText: 'Nome'
@@ -61,10 +61,10 @@ class _RegisterState extends State<_Register> {
                     ),
                     TextEmail (
                       padding: const EdgeInsets.only(top: 25, left: 20, right: 20), 
-                      controller: model.emailController,
+                      controller: viewModel.emailController,
                     ),
                     TextPassWord ( 
-                      controller: model.passwordController,
+                      controller: viewModel.passwordController,
                       padding: const EdgeInsets.only(top: 25, left: 20, right: 20), 
                     ),
                   ],
@@ -77,14 +77,18 @@ class _RegisterState extends State<_Register> {
                   height: 64,
                   child: ElevatedButton(
                     onPressed: (){
-                        model.register().then((value) => {
+                        viewModel.register().then((value) => {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(content: Text('Processing Data')),
                             )
                           }
                         );
                       },
-                    child: const Text('Criar')
+                child: Consumer<RegisterViewModel>(
+                  builder: (context, value, child) => value.isLoading
+                    ? const CircularProgressIndicator(value: null)
+                    : const Text('Entrar'),
+                    )
                   ),
                 ),
               ),

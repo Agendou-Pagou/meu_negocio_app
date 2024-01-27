@@ -22,21 +22,38 @@ class RegisterViewModel extends ChangeNotifier{
 
   Future<void> register() async{
 
-    RegisterRequest loginRequest = RegisterRequest(emailController.text, nameController.text, passwordController.text);
-
-    isLoading = true;  
-    notifyListeners();
-
-    if ( !formKey.currentState!.validate() ){
-      isLoading = false;
-      notifyListeners();
-      throw Exception();
+  
+    // TODO use mutex to make this
+    if (isLoading){
+      return;
     }
 
-    await RegisterService.register(loginRequest);
+    try {
+      
+      RegisterRequest loginRequest = RegisterRequest(emailController.text, nameController.text, passwordController.text);
 
-    isLoading = false;
-    notifyListeners();
+      isLoading = true;  
+      notifyListeners();
+
+      if ( !formKey.currentState!.validate() ){
+        isLoading = false;
+        notifyListeners();
+        throw Exception();
+      }
+
+      await RegisterService.register(loginRequest);
+
+    } catch (e) {
+      rethrow;
+
+    }finally{
+
+      isLoading = false;
+      notifyListeners();
+
+    }
+
+
   }
 
   @override
