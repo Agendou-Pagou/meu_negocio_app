@@ -27,26 +27,23 @@ class RegisterViewModel extends ChangeNotifier{
     if (isLoading){
       return;
     }
+    isLoading = true;  
+    notifyListeners();
 
     try {
-      
-      RegisterRequest loginRequest = RegisterRequest(emailController.text, nameController.text, passwordController.text);
-
-      isLoading = true;  
-      notifyListeners();
 
       if ( !formKey.currentState!.validate() ){
         isLoading = false;
         notifyListeners();
-        throw Exception();
+        throw Exception('Valores inválidos');
       }
 
-      await RegisterService.register(loginRequest);
+      await RegisterService.register(RegisterRequest(emailController.text, nameController.text, passwordController.text));
 
     } catch (e) {
       rethrow;
 
-    }finally{
+    } finally {
 
       isLoading = false;
       notifyListeners();

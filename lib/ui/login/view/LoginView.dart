@@ -18,7 +18,7 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (context) => LoginViewModel(),
+      create: (context) => LoginViewModel(context),
       child: const _Login(),
     );
   }
@@ -42,15 +42,29 @@ class _LoginState extends State<_Login> {
   @override
   Widget build(BuildContext context) {
 
-    LoginViewModel viewModel =  Provider.of<LoginViewModel>(context, listen: false);
+    LoginViewModel viewModel =  Provider.of<LoginViewModel>(context);
 
     return Scaffold(
-      body: _emailAndPassword(viewModel),
+    body: Consumer<LoginViewModel>(
+      builder: (context, value, child) => switch(value.screenState) {
+        ScreenState.tryRefreshingTheToken => _loadingScreen(viewModel),
+        ScreenState.emailAndPassword => _emailAndPassword(viewModel),
+        ScreenState.deviceAuth => _authDevice(viewModel),
+      }));
+  }
+
+
+  Widget _loadingScreen(LoginViewModel viewModel) {
+
+    viewModel.refreshToken().then((_) => viewModel.loginWithDeviceAuth());
+    
+    return const Center(
+      child: CircularProgressIndicator(value: null),
     );
   }
 
   Widget _authDevice(LoginViewModel viewModel) {
-    return Column(
+    return Column (
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         Expanded(
@@ -69,15 +83,7 @@ class _LoginState extends State<_Login> {
             height: 64,
             child: ElevatedButton(
               onPressed: () {
-                viewModel.loginWithDeviceAuth().then((value) {
-                  if (value) {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const HomeView(),
-                      ),
-                    );
-                  }
-                });
+                viewModel.loginWithDeviceAuth();
               },
               child: const Text('Usar senha do celular'),
             ),
@@ -177,19 +183,12 @@ class _LoginState extends State<_Login> {
       height: 64,
       child: ElevatedButton(
         onPressed: () {
-          viewModel.loginWithNameAndEmail().then((value) {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const HomeView(),
-              ),
-            );
-          }).catchError((e) => {
-                showDialog<Object>(
+          viewModel.loginWithEmailAndPassword()
+          .catchError((e) => showDialog<Object>(
                   context: context,
-                  builder: (BuildContext context) =>
-                      ErrorPopUp(content: Text('$e')),
+                  builder: (BuildContext context) => ErrorPopUp(content: Text('$e')),
                 )
-              });
+              );
         },
         child: Consumer<LoginViewModel>(
           builder: (context, value, child) => value.isLoading
@@ -231,6 +230,8 @@ class _LoginState extends State<_Login> {
       ),
     );
   }
+
+
 
 }
 

@@ -10,7 +10,7 @@ class BaseApi{
 
   BaseApi._internal (): _dio = Dio() {
 
-    _dio!.options.baseUrl = 'http://192.168.0.107:3000/';
+    _dio!.options.baseUrl = 'http://192.168.1.101:3000/';
     _dio!.options.connectTimeout = const Duration(seconds: 5000);
     _dio!.options.receiveTimeout = const Duration(seconds: 5000);
 
@@ -23,7 +23,7 @@ class BaseApi{
     return _dio!.get(path, queryParameters: queryParameters);
   }
 
-  Future<Response> post(String path, dynamic data) async {
+  Future<Response> post(String path, Object? data) async {
     return _dio!.post(path, data: data);
   }
 

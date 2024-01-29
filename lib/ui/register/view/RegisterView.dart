@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:meu_negocio_app/ui/register/viewModel/RegisterViewModel.dart';
+import 'package:meu_negocio_app/ui/shared/ErrorPopUp.dart';
 import 'package:meu_negocio_app/ui/shared/Header.dart';
 import 'package:meu_negocio_app/ui/shared/TextEmail.dart';
 import 'package:meu_negocio_app/ui/shared/TextPassword.dart';
@@ -50,7 +51,7 @@ class _RegisterState extends State<_Register> {
                   children: <Widget>[
                     Padding(
                       padding:const EdgeInsets.only(top: 70, left: 20, right: 20), 
-                      child: TextFormField(
+                      child: TextFormField (
                         validator: (value) =>value == null || value.trim().isEmpty ? 'O nome não pode estar vazio.' : null,
                         controller: viewModel.nameController,
                         decoration: InputDecoration ( 
@@ -82,7 +83,13 @@ class _RegisterState extends State<_Register> {
                               const SnackBar(content: Text('Processing Data')),
                             )
                           }
-                        );
+                        ).catchError((e) {
+                            showDialog<Object>(
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  ErrorPopUp(content: Text('$e')),
+                            );
+                          });
                       },
                 child: Consumer<RegisterViewModel>(
                   builder: (context, value, child) => value.isLoading
