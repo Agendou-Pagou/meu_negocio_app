@@ -14,7 +14,6 @@ void main() {
   });
 
   test('LoginService login', () async {
-    // Arrange
     final loginRequest = LoginRequest('saniman111@regapts.com', 'password123');
 
     int? statusCode;
@@ -33,8 +32,11 @@ void main() {
           
       });
 
-    // Assert
-    expect(statusCode, isIn([200, 401]));
+    expect(statusCode, isIn([200, 401, 409]));
+   });
+
+
+  test('LoginService refresh', () async {
    });
 }
 

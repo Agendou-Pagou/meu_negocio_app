@@ -1,6 +1,5 @@
-import 'dart:math';
-
-import 'package:logger/logger.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:meu_negocio_app/core/log/Log.dart';
 import 'package:meu_negocio_app/ui/register/model/RegisterRequest.dart';
 import 'package:meu_negocio_app/ui/register/service/RegisterService.dart';
@@ -9,6 +8,11 @@ import 'package:dio/dio.dart'; // Import Dio package
 
 void main() {
 
+  WidgetsFlutterBinding.ensureInitialized();
+
+  setUpAll(() {
+    FlutterSecureStorage.setMockInitialValues({});
+  });
 
   test('RegisterService', () async {
     // Arrange
