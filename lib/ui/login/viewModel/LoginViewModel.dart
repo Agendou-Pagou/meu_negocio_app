@@ -7,29 +7,18 @@ import 'package:meu_negocio_app/ui/login/service/LoginService.dart';
 
 import '../model/LoginRequest.dart';
 
-enum ScreenState {
-    tryRefreshingTheToken,
-    emailAndPassword,
-    deviceAuth
-}
-
 class LoginViewModel extends ChangeNotifier {
 
   final BuildContext context;
   
   bool isLoading;
 
-  ScreenState screenState;
-
   final GlobalKey<FormState> formKey;
   final TextEditingController emailController;
   final TextEditingController passwordController;
 
-
-
   LoginViewModel(this.context) :
     isLoading = false,
-    screenState = ScreenState.tryRefreshingTheToken,
     formKey = GlobalKey<FormState>(),
     emailController = TextEditingController(),
     passwordController = TextEditingController();
@@ -64,20 +53,8 @@ class LoginViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> refreshToken() async {
-
-    try {
+  Future<void> getRefreshTokenFuture() async {
       await LoginService.refreshToken();
-      screenState = ScreenState.deviceAuth;
-      Log.i('refresh token succeful');
-      notifyListeners();
-    } catch (e) {
-      Log.i('refresh token error\n$e');
-      screenState = ScreenState.emailAndPassword;
-      notifyListeners();
-      rethrow;
-    }
-
   }
 
  Future<void> loginWithDeviceAuth() async {

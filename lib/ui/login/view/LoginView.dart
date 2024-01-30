@@ -38,6 +38,14 @@ class _Login extends StatefulWidget {
 
 class _LoginState extends State<_Login> {
 
+   late Future<void> _future;
+
+  @override
+  void initState() {
+    super.initState();
+    _future =  Provider.of<LoginViewModel>(context, listen: false).getRefreshTokenFuture(); 
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -45,19 +53,24 @@ class _LoginState extends State<_Login> {
     LoginViewModel viewModel =  Provider.of<LoginViewModel>(context);
 
     return Scaffold(
-    body: Consumer<LoginViewModel>(
-      builder: (context, value, child) => switch(value.screenState) {
-        ScreenState.tryRefreshingTheToken => _loadingScreen(viewModel),
-        ScreenState.emailAndPassword => _emailAndPassword(viewModel),
-        ScreenState.deviceAuth => _authDevice(viewModel),
-      }));
+      body: FutureBuilder(
+        future: _future,
+        builder: (context, snapshot) {
+          if ( snapshot.connectionState == ConnectionState.waiting ){
+            return _loadingScreen(viewModel);
+          } else if (!snapshot.hasError){
+            viewModel.loginWithDeviceAuth();
+            return _authDevice(viewModel);
+          }else{
+            return _emailAndPassword(viewModel);
+          }
+        }
+      )
+    );
   }
 
 
   Widget _loadingScreen(LoginViewModel viewModel) {
-
-    viewModel.refreshToken().then((_) => viewModel.loginWithDeviceAuth());
-    
     return const Center(
       child: CircularProgressIndicator(value: null),
     );
